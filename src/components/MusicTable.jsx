@@ -20,7 +20,7 @@ const allColumns = [
           </div>
         ),
         sortable: true,
-        width: "500px",
+        width: "200px",
       },
   { id: "type", name: "Type", selector: row => row.type, sortable: true },
   { id: "songCount", name: "Song Count", selector: row => row.songCount, sortable: true },
@@ -36,7 +36,8 @@ const allColumns = [
     id: "releasedOn",
     name: "Released On",
     selector: row => format(new Date(row.releasedOn), "dd MMM yyyy, hh:mm a"),
-    sortable: true
+    sortable: true,
+      width: "200px",
   },
   {
     id: "action",
