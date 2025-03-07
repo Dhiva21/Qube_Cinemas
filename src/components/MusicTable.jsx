@@ -4,7 +4,6 @@ import { Form, Dropdown, DropdownButton, FormControl } from "react-bootstrap";
 import { FaSearch, FaEye } from "react-icons/fa";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 
 
@@ -65,7 +64,7 @@ const MusicTable = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [visibleColumns, setVisibleColumns] = useState(allColumns.map(col => col.id));
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   useEffect(() => {
     fetch("http://localhost:3000/collections")
       .then(res => res.json())
@@ -85,15 +84,15 @@ const MusicTable = () => {
   };
 
 
-const handleColumnSelection = (columnId) => {
-    setVisibleColumns((prevColumns) => {
-      if (prevColumns.includes(columnId)) {
-        return prevColumns.filter((col) => col !== columnId); 
-      } else {
-        return [...prevColumns, columnId]; 
-      }
-    });
-  };
+// const handleColumnSelection = (columnId) => {
+//     setVisibleColumns((prevColumns) => {
+//       if (prevColumns.includes(columnId)) {
+//         return prevColumns.filter((col) => col !== columnId); 
+//       } else {
+//         return [...prevColumns, columnId]; 
+//       }
+//     });
+//   };
 
 
   
@@ -110,12 +109,12 @@ const handleColumnSelection = (columnId) => {
   const filteredColumns = allColumns.filter(col => visibleColumns.includes(col.id));
 
   return (
-    <div className="container-fluid mt-3">
-      <div className="boxShadow overView">
+    <div className="container-fluid px-0 ">
+      <div className="boxShadow overView py-3">
         <h2>Overview</h2>
       </div>
        
-      <div className="searchBox mx-3 mt-3">
+      <div className="searchBox mx-3 mt-3 borderRadius">
         <div className="row">
 
           <div className="col-md-3">
@@ -191,7 +190,7 @@ const handleColumnSelection = (columnId) => {
           data={filteredData} 
           pagination 
           highlightOnHover 
-          className="bg-light"
+          className="tableInner"
         />
       </div>
     </div>

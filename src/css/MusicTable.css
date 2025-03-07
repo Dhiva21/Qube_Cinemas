@@ -1,3 +1,7 @@
+
+body {
+    background-color: #F5F8FA;
+}
 .typeDrop button{
     background-color: #E1E4E9 !important;
     color: #29313A !important;
@@ -22,17 +26,17 @@
     display: flex ;
         align-items: end;
 }
-.viewBtn span{
-    margin: 10px 2px;
+.viewBtn {
+   font-size: 12px;
 }
 .search{
     position: relative;
-    padding: 0px 10px;
+    padding: 0px 19px;
 }
 .search-icon {
     position: absolute;
     top: 5px;
-    right: 25px;
+    right: 30px;
     color: #677A90;
 }
 .font-size{
@@ -85,7 +89,13 @@ a{
     border: 1px solid #C2CAD3 ;
   }
   
-
+.overviewBreadCrumb{
+    color: #677A90;
+    font-weight: 500;
+}
+.borderRadius{
+    border-radius: 9px;
+}
 
   @media only screen and (max-width: 480px) {
     .boxShadow h2{

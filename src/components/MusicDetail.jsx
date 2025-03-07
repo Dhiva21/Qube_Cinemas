@@ -8,7 +8,7 @@ import { format } from "date-fns";
 
 const columns = [
     { name: "Song Name", selector: row => row.name, sortable: true },
-    { name: "Performers", selector: row => row.performers, sortable: false },
+    { name: "Performers", selector: row => row.performers, sortable: false,width:"500px" },
     { name: "Duration", selector: row => row.duration, sortable: true },
     { name: "Size", selector: row => row.size, sortable: true },
   ];
@@ -39,10 +39,10 @@ const MusicDetail = () => {
 
   return (
     <>
-    <div className="container-fluid">
+    <div className="container-fluid ">
         <div className="row">
-             <div className="col-md-12  mt-2">
-             <div className="boxShadow">
+             <div className="col-md-12  mt-2 px-0">
+             <div className="px-2">
       <nav
   style={{
     "--bs-breadcrumb-divider":
@@ -53,7 +53,7 @@ const MusicDetail = () => {
 
         <ol className="breadcrumb mb-0">
   <li className="breadcrumb-item">
-    <Link to="/">Overview</Link>
+    <Link to="/" className="overviewBreadCrumb">Overview</Link>
   </li>
   <li className="breadcrumb-item">
   {details.name}
@@ -61,7 +61,12 @@ const MusicDetail = () => {
 </ol>
 
 </nav>
-      </div>
+            </div>
+            
+
+            <div className="boxShadow mt-3 ">
+               <h2>{details.name}</h2>
+          </div>
              </div>
         </div>
     </div>
@@ -73,10 +78,10 @@ const MusicDetail = () => {
     
       <div className="row">
          <div className="col-md-12">
-            <div className="boxShadow">
+            <div className="boxShadow borderRadius">
 
            
-         <h2>{details.name}</h2>
+         
         <div className="row mt-3">
           <div className="col-xl-2 col-lg -2 col-md-4 col-sm-6 col-6">
           <p className="font-size"><strong>Artist:</strong> {details.artist}</p>
@@ -110,7 +115,7 @@ const MusicDetail = () => {
      
      <div className="container-fluid">
          <div className="row mt-4">
-             <div className="col-md-12">
+             <div className="col-md-12 borderRadius">
              <DataTable
         columns={columns}
         data={details.songs}
