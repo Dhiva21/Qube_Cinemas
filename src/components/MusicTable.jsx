@@ -4,7 +4,7 @@ import { Form, Dropdown, DropdownButton, FormControl } from "react-bootstrap";
 import { FaSearch, FaEye } from "react-icons/fa";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
 
 
 
@@ -32,13 +32,19 @@ const allColumns = [
 },
 
   { id: "sizeInBytes", name: "Size", selector: row => row.sizeInBytes, sortable: true },
-  {
-    id: "releasedOn",
-    name: "Released On",
-    selector: row => format(new Date(row.releasedOn), "dd MMM yyyy, hh:mm a"),
-    sortable: true,
-      width: "200px",
+{
+  id: "releasedOn",
+  name: "Released On",
+  selector: row => {
+    if (!row.releasedOn || isNaN(new Date(row.releasedOn))) {
+      return "N/A"; 
+    }
+    return format(new Date(row.releasedOn), "dd MMM yyyy, hh:mm a");
   },
+  sortable: true,
+  width: "200px",
+},
+
   {
     id: "action",
     name: "Action",
@@ -66,14 +72,19 @@ const MusicTable = () => {
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [visibleColumns, setVisibleColumns] = useState(allColumns.map(col => col.id));
   // const navigate = useNavigate();
-  useEffect(() => {
-    fetch("http://localhost:3000/collections")
-      .then(res => res.json())
-      .then(data => {
-        setData(data);
-        setFilteredData(data); 
-      });
-  }, []);
+useEffect(() => {
+  axios.get("http://localhost:3001/collections")
+    .then(response => {
+      console.log("API Response:", response.data); 
+      const fetchedData = response.data[0]?.collections || []; 
+      setData(fetchedData);
+      setFilteredData(fetchedData);
+    })
+    .catch(error => {
+      console.error("Error fetching data:", error);
+    });
+}, []);
+
 
 
   const handleTypeSelection = (type) => {
@@ -98,11 +109,13 @@ const MusicTable = () => {
 
   
   useEffect(() => {
-    const filtered = data.filter(item =>
-      (selectedTypes.length === 0 || selectedTypes.includes(item.type)) && 
-      (item.name.toLowerCase().includes(search.toLowerCase()) ||
-       item.type.toLowerCase().includes(search.toLowerCase()))
-    );
+   const filtered = data.filter(item =>
+  (selectedTypes.length === 0 || selectedTypes.includes(item.type)) &&
+  (
+    (item.name && item.name.toLowerCase().includes(search.toLowerCase())) ||
+    (item.type && item.type.toLowerCase().includes(search.toLowerCase()))
+  )
+);
     setFilteredData(filtered);
   }, [search, selectedTypes, data]);
 
