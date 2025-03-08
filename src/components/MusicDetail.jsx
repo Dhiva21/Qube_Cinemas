@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
-
+import axios from "axios";
 
 
 const columns = [
@@ -21,13 +21,16 @@ const MusicDetail = () => {
   
 
   useEffect(() => {
-    fetch(`http://localhost:3000/collections/${id}`)
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-            setDetails(data)
+    axios.get(`http://localhost:3001/collections/${id}`)
+  .then(response => {
+    console.log("API Response:", response.data);
+    setDetails(response.data);
+  })
+  .catch(error => {
+    console.error("Error fetching data:", error);
   });
-  }, [id]);
+
+}, [id]);
 
   if (!details) return <h2>Loading...</h2>;
   const formatDuration = (seconds) => {
